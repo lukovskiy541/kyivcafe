@@ -69,9 +69,12 @@ class KyivCafeApp {
             const overpassQuery = `
                 [out:json][timeout:25];
                 (
-                  node["amenity"="cafe"](50.1,30.0,50.8,31.0);
-                  way["amenity"="cafe"](50.1,30.0,50.8,31.0);
-                  relation["amenity"="cafe"](50.1,30.0,50.8,31.0);
+                  node["amenity"="cafe"]["takeaway"!="only"]["takeaway"!="yes"](50.1,30.0,50.8,31.0);
+                  way["amenity"="cafe"]["takeaway"!="only"]["takeaway"!="yes"](50.1,30.0,50.8,31.0);
+                  node["amenity"="cafe"]["outdoor_seating"="yes"](50.1,30.0,50.8,31.0);
+                  way["amenity"="cafe"]["outdoor_seating"="yes"](50.1,30.0,50.8,31.0);
+                  node["amenity"="cafe"]["indoor_seating"="yes"](50.1,30.0,50.8,31.0);
+                  way["amenity"="cafe"]["indoor_seating"="yes"](50.1,30.0,50.8,31.0);
                 );
                 out geom;
             `;

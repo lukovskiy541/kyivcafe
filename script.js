@@ -236,6 +236,21 @@ class KyivCafeApp {
         info += `<p><strong>Статус:</strong> ${statusText[cafe.status]}</p>`;
         
         document.getElementById('modal-info').innerHTML = info;
+        
+        const existingGoogleBtn = document.getElementById('google-maps-btn');
+        if (existingGoogleBtn) {
+            existingGoogleBtn.remove();
+        }
+        
+        const googleMapsBtn = document.createElement('button');
+        googleMapsBtn.id = 'google-maps-btn';
+        googleMapsBtn.className = 'btn btn-google-maps';
+        googleMapsBtn.innerHTML = '🗺️ Відкрити в Google Maps';
+        googleMapsBtn.onclick = () => this.openGoogleMaps(cafe.lat, cafe.lon, cafe.name);
+        
+        const modalActions = document.querySelector('.modal-actions');
+        modalActions.appendChild(googleMapsBtn);
+        
         document.getElementById('modal').style.display = 'block';
     }
 
@@ -407,6 +422,22 @@ class KyivCafeApp {
         }
         
         alert(message);
+    }
+
+    openGoogleMaps(lat, lon, name) {
+        // Спробуємо різні варіанти URL для кращої точності
+        const encodedName = encodeURIComponent(name);
+        
+        // Варіант 1: Тільки координати (найточніший)
+        const coordsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
+        
+        // Варіант 2: З параметром place_id (якщо потрібно)
+        // const placeUrl = `https://www.google.com/maps/place/${encodedName}/@${lat},${lon},17z`;
+        
+        // Варіант 3: Для навігації
+        // const directionUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`;
+        
+        window.open(coordsUrl, '_blank');
     }
 }
 

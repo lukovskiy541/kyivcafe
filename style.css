@@ -252,6 +252,15 @@ main {
     background: #5a6268;
 }
 
+.btn-google-maps {
+    background: #4285f4;
+    color: white;
+}
+
+.btn-google-maps:hover {
+    background: #3367d6;
+}
+
 .leaflet-popup-content {
     font-size: 14px;
     line-height: 1.4;

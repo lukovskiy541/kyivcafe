@@ -71,9 +71,44 @@ body {
     border-color: #007bff;
 }
 
+.location-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.find-me-btn {
+    padding: 10px 20px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+}
+
+.find-me-btn:hover:not(:disabled) {
+    background: #218838;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+}
+
+.find-me-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2);
+}
+
 main {
     height: 100vh;
-    padding-top: 130px;
+    padding-top: 150px;
 }
 
 #map {
@@ -246,7 +281,7 @@ main {
     }
     
     main {
-        padding-top: 120px;
+        padding-top: 140px;
     }
     
     .modal-content {

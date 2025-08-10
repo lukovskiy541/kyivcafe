@@ -5,6 +5,7 @@ class KyivCafeApp {
         this.markers = [];
         this.currentFilter = 'all';
         this.selectedCafe = null;
+        this.userLocationMarker = null;
         
         this.init();
     }
@@ -54,6 +55,10 @@ class KyivCafeApp {
 
         document.getElementById('btn-reset').addEventListener('click', () => {
             this.setCafeStatus('new');
+        });
+
+        document.getElementById('find-me-btn').addEventListener('click', () => {
+            this.findUserLocation();
         });
     }
 
@@ -315,6 +320,93 @@ class KyivCafeApp {
                 ">Спробувати ще раз</button>
             </div>
         `;
+    }
+
+    findUserLocation() {
+        const button = document.getElementById('find-me-btn');
+        
+        if (!navigator.geolocation) {
+            alert('Геолокація не підтримується вашим браузером');
+            return;
+        }
+
+        button.textContent = '🔄 Шукаю...';
+        button.disabled = true;
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const { latitude, longitude } = position.coords;
+                this.showUserLocation(latitude, longitude);
+                button.textContent = '📍 Знайти себе';
+                button.disabled = false;
+            },
+            (error) => {
+                this.handleGeolocationError(error);
+                button.textContent = '📍 Знайти себе';
+                button.disabled = false;
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 60000
+            }
+        );
+    }
+
+    showUserLocation(lat, lon) {
+        if (this.userLocationMarker) {
+            this.map.removeLayer(this.userLocationMarker);
+        }
+
+        this.userLocationMarker = L.marker([lat, lon], {
+            icon: L.divIcon({
+                className: 'user-location-marker',
+                html: `<div style="
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    background-color: #007bff;
+                    border: 4px solid white;
+                    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+                    position: relative;
+                ">
+                    <div style="
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        width: 6px;
+                        height: 6px;
+                        background-color: white;
+                        border-radius: 50%;
+                    "></div>
+                </div>`,
+                iconSize: [32, 32],
+                iconAnchor: [16, 16]
+            })
+        }).addTo(this.map);
+
+        this.userLocationMarker.bindPopup('📍 Ваше місцезнаходження');
+
+        this.map.setView([lat, lon], 15);
+    }
+
+    handleGeolocationError(error) {
+        let message = 'Не вдалося визначити ваше місцезнаходження';
+        
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                message = 'Доступ до геолокації заборонено. Дозвольте доступ у налаштуваннях браузера';
+                break;
+            case error.POSITION_UNAVAILABLE:
+                message = 'Інформація про місцезнаходження недоступна';
+                break;
+            case error.TIMEOUT:
+                message = 'Час очікування визначення місцезнаходження минув';
+                break;
+        }
+        
+        alert(message);
     }
 }
 

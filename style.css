@@ -234,6 +234,15 @@ main {
     background: #218838;
 }
 
+.btn-selected {
+    background: #fd7e14;
+    color: white;
+}
+
+.btn-selected:hover {
+    background: #e86908;
+}
+
 .btn-disliked {
     background: #dc3545;
     color: white;

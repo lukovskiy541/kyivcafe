@@ -49,6 +49,10 @@ class KyivCafeApp {
             this.setCafeStatus('visited');
         });
 
+        document.getElementById('btn-selected').addEventListener('click', () => {
+            this.setCafeStatus('selected');
+        });
+
         document.getElementById('btn-disliked').addEventListener('click', () => {
             this.setCafeStatus('disliked');
         });
@@ -193,6 +197,7 @@ class KyivCafeApp {
         const colors = {
             'new': '#28a745',      // Зелений
             'visited': '#007bff',   // Синій
+            'selected': '#fd7e14',  // Помаранчевий
             'disliked': '#dc3545'  // Червоний
         };
 
@@ -234,6 +239,7 @@ class KyivCafeApp {
         const statusText = {
             'new': 'Нове кафе',
             'visited': 'Відвідане',
+            'selected': 'Вибрано для відвідування',
             'disliked': 'Не подобається'
         };
         info += `<p><strong>Статус:</strong> ${statusText[cafe.status]}</p>`;
@@ -285,6 +291,8 @@ class KyivCafeApp {
                     return status === 'new';
                 case 'visited':
                     return status === 'visited';
+                case 'selected':
+                    return status === 'selected';
                 case 'disliked':
                     return status === 'disliked';
                 case 'all':

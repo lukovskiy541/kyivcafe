@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кафе Києва</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>Кафе Києва</h1>
+            <div class="counter">
+                <span id="counter-text">Відвідано 0 з 0 кафе</span>
+            </div>
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">Показати всі</button>
+                <button class="filter-btn" data-filter="new">Тільки нові</button>
+                <button class="filter-btn" data-filter="visited">Тільки відвідані</button>
+                <button class="filter-btn" data-filter="disliked">Тільки неподобані</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div id="map"></div>
+        <div class="loading" id="loading">
+            <div class="loading-spinner"></div>
+            <p>Завантаження кафе...</p>
+        </div>
+    </main>
+
+    <!-- Модальне вікно -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title"></h2>
+            <div id="modal-info"></div>
+            <div class="modal-actions">
+                <button id="btn-visited" class="btn btn-visited">Відвідано</button>
+                <button id="btn-disliked" class="btn btn-disliked">Не подобається</button>
+                <button id="btn-reset" class="btn btn-reset">Скинути</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
